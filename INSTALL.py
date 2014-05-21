@@ -1457,7 +1457,7 @@ if "isolate" in enabledWorkflows or "imetamos" in enabledWorkflows or manual:
            print "FreeBayes tool not found, optional for Validate step, download now?"
            dl = raw_input("Enter Y/N: ")
         if dl == 'y' or dl == 'Y':
-           os.system("git clone --recursive git://github.com/ekg/freebayes.git freebayes")
+           os.system("git clone --recursive https://github.com/ekg/freebayes.git freebayes")
            os.system("mv ./freebayes ./Utilities/cpp/%s%s-%s%sfreebayes"%(os.sep, OSTYPE, MACHINETYPE, os.sep))
            os.chdir("./Utilities/cpp/%s%s-%s%sfreebayes"%(os.sep, OSTYPE, MACHINETYPE, os.sep))
            updateMakeFileForDarwin("src/makefile", addedCFlags, addedLDFlags)

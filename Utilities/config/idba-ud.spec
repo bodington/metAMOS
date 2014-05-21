@@ -11,6 +11,6 @@ paired_interleaved --read [FIRST]
 commands idba_ud \
 		--out [PREFIX].asm [THREADS] [INPUT]
 [idba_ud]
--mink 21
+-mink 20
 -maxk [READLEN]
 -pre_correction

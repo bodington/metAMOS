@@ -10,6 +10,7 @@ AMOS/
 FastQC/
 KronaTools/
 
+Utilities/DB
 Utilities/DB/allprots.faa
 Utilities/DB/blast_data/
 Utilities/DB/refseq_protein.00.phr
@@ -34,6 +35,30 @@ Utilities/perl/metaphyler/
 Utilities/python/lib/
 Utilities/python/psutil/
 Utilities/python/pysam/
+CA/
+LAP/
+Utilities/cpp/Linux-x86_64/ALE/
+Utilities/cpp/Linux-x86_64/FRCbam/
+Utilities/cpp/Linux-x86_64/MaSuRCA/
+Utilities/cpp/Linux-x86_64/MetaVelvet/
+Utilities/cpp/Linux-x86_64/REAPR/
+Utilities/cpp/Linux-x86_64/Ray/
+Utilities/cpp/Linux-x86_64/abyss/
+Utilities/cpp/Linux-x86_64/cgal/
+Utilities/cpp/Linux-x86_64/eautils/
+Utilities/cpp/Linux-x86_64/edena/
+Utilities/cpp/Linux-x86_64/freebayes/
+Utilities/cpp/Linux-x86_64/kmergenie/
+Utilities/cpp/Linux-x86_64/kraken/
+Utilities/cpp/Linux-x86_64/mira/
+Utilities/cpp/Linux-x86_64/prokka/
+Utilities/cpp/Linux-x86_64/sga/
+Utilities/cpp/Linux-x86_64/soap2/
+Utilities/cpp/Linux-x86_64/spades/
+Utilities/cpp/Linux-x86_64/sra/
+Utilities/cpp/Linux-x86_64/velvet-sc/
+Utilities/cpp/Linux-x86_64/velvet/
+quast/
 
 
 runPipeline

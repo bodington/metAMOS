@@ -334,7 +334,7 @@ def findFastaORFs(orf, contigs, outputFNA, outputFAA, outputCVG, outputMAP, min_
          prokkaOptions = prokkaOptions.replace("--gram", "")
 
       run_process(_settings, "rm -rf %s/FindORFS/out/%s.prokka"%(_settings.rundir, _settings.PREFIX))
-      run_process(_settings, "%s/prokka %s --outdir %s/FindORFS/out/%s.prokka --prefix %s --force %s"%(_settings.PROKKA,"--fast" if _run_fast else "",  _settings.rundir, _settings.PREFIX, _settings.PREFIX, contigs), "FindORFS")
+      run_process(_settings, "%s/prokka %s --metagenome --cpus %s --outdir %s/FindORFS/out/%s.prokka --prefix %s --force %s"%(_settings.PROKKA,"--fast" if _run_fast else "", _settings.threads,  _settings.rundir, _settings.PREFIX, _settings.PREFIX, contigs), "FindORFS")
       parse_prokka("%s/FindORFS/out/prokka/%s.gff"%(_settings.rundir,_settings.PREFIX), 0, "FindORFS", min_len, min_cvg)
       run_process(_settings, "ln %s/FindORFS/out/%s.prokka/%s.ffn %s/FindORFS/out/%s"%(_settings.rundir, _settings.PREFIX, _settings.PREFIX, _settings.rundir, outputFNA), "FindORFS")
       run_process(_settings, "ln %s/FindORFS/out/%s.prokka/%s.faa %s/FindORFS/out/%s"%(_settings.rundir, _settings.PREFIX, _settings.PREFIX, _settings.rundir, outputFAA), "FindORFS")

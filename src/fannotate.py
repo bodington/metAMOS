@@ -26,8 +26,9 @@ def FunctionalAnnotation(input,output):
    # uniprot_sprot_enz_set
    
    if os.path.exists("%s/uniprot_sprot.fasta"%(_settings.BLASTDB_DIR)):
+      if not os.path.exists("%s/FunctionalAnnotation/out/blast.out"%(_settings.rundir)):
        
-       run_process(_settings,"%s/blastall -p blastp -i %s/FindORFS/out/proba.faa -d %s/uniprot_sprot.fasta -a %s -e 0.001 -m 8 -b 1 > %s/FunctionalAnnotation/out/blast.out"%(_settings.BLAST,_settings.rundir,_settings.BLASTDB_DIR,_settings.threads,_settings.rundir),"FunctionalAnnotation")
+         run_process(_settings,"%s/blastall -p blastp -i %s/FindORFS/out/proba.faa -d %s/uniprot_sprot.fasta -a %s -e 0.001 -m 8 -b 1 > %s/FunctionalAnnotation/out/blast.out"%(_settings.BLAST,_settings.rundir,_settings.BLASTDB_DIR,_settings.threads,_settings.rundir),"FunctionalAnnotation")
    #run_process(_settings,"%s/blastall -p blastx -a %d -m 8 -b 1 -e 1e-2 -i %s -d %s/perl/metaphyler/test/test.ref.protein > %s/Annotate/out/%s.query.blastx"%(_settings.BLAST,_settings.threads,orfFA,_settings.METAMOS_UTILS,_settings.rundir,_settings.PREFIX))
    #create index of EC codes
    eclines = []
@@ -78,5 +79,3 @@ def FunctionalAnnotation(input,output):
    #for top hit for each seq, report id, e-vlue and EC value
    #create krona plot
    run_process(_settings,"%s/KronaTools/bin/ktImportEC %s %s/FunctionalAnnotation/out/krona.ec.input"%(_settings.METAMOSDIR,"-l" if _settings.local_krona else "",_settings.rundir), "FunctionalAnnotation")
-   
- 

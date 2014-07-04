@@ -58,6 +58,11 @@ Utilities/cpp/Linux-x86_64/spades/
 Utilities/cpp/Linux-x86_64/sra/
 Utilities/cpp/Linux-x86_64/velvet-sc/
 Utilities/cpp/Linux-x86_64/velvet/
+Utilities/cpp/Linux-x86_64/prokka/
+Utilities/cpp/Linux-x86_64/bowtie*
+
+Utilities/cpp/Darwin-x86_64
+
 quast/
 
 

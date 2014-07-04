@@ -139,7 +139,7 @@ def annotateSeq(cls, contigs, orfAA, orfFA, output):
           print "Error: PhyloSift not found in %s. Please check your path and try again.\n"%(_settings.PHYLOSIFT)
           raise(JobSignalledBreak)
 
-       phylosiftCmd =  "%s/bin/phylosift all --threads=%d"%(_settings.PHYLOSIFT, _settings.threads)
+       phylosiftCmd =  "%s/bin/phylosift all --threads=%d --extended"%(_settings.PHYLOSIFT, _settings.threads)
        phylosiftCmd += " %s"%(getProgramParams("phylosift.spec", "", "--"))
        # run on contigs for now
        #for lib in readlibs:
@@ -151,12 +151,13 @@ def annotateSeq(cls, contigs, orfAA, orfFA, output):
        #   else:
        #      run_process(_settings, "%s %s/Preprocess/out/lib%d.seq"%(phylosiftCmd,_settings.rundir,lib.id), "Annotate")
 
-       run_process(_settings, "rm -rf %s/Annotate/out/PS_temp"%(_settings.rundir), "Annotate")
-       run_process(_settings, "%s %s --coverage=%s/Assemble/out/%s.contig.cnt "%(phylosiftCmd, contigs, _settings.rundir,_settings.PREFIX), "Annotate")
+       if not os.path.exists("%s/Annotate/out/%s.intermediate.hits"%(_settings.rundir, output)):
+          run_process(_settings, "rm -rf %s/Annotate/out/PS_temp"%(_settings.rundir), "Annotate")
+          run_process(_settings, "%s %s --coverage=%s/Assemble/out/%s.contig.cnt "%(phylosiftCmd, contigs, _settings.rundir,_settings.PREFIX), "Annotate")
 
-       # save the results
-       run_process(_settings, "unlink %s/Annotate/out/%s.intermediate.hits"%(_settings.rundir, output), "Annotate")
-       run_process(_settings, "ln %s/Annotate/out/PS_temp/%s/sequence_taxa_summary.txt %s/Annotate/out/%s.intermediate.hits"%(_settings.rundir, os.path.basename(contigs), _settings.rundir, output), "Annotate") 
+          # save the results
+          run_process(_settings, "unlink %s/Annotate/out/%s.intermediate.hits"%(_settings.rundir, output), "Annotate")
+          run_process(_settings, "ln %s/Annotate/out/PS_temp/%s/sequence_taxa_summary.txt %s/Annotate/out/%s.intermediate.hits"%(_settings.rundir, os.path.basename(contigs), _settings.rundir, output), "Annotate") 
        
    elif cls == "fcp":
        run_process(_settings, "ln -s %s/models"%(_FCP_MODELS), "Annotate")

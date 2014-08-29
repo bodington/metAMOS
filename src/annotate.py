@@ -151,14 +151,16 @@ def annotateSeq(cls, contigs, orfAA, orfFA, output):
        #   else:
        #      run_process(_settings, "%s %s/Preprocess/out/lib%d.seq"%(phylosiftCmd,_settings.rundir,lib.id), "Annotate")
 
-       if not os.path.exists("%s/Annotate/out/%s.intermediate.hits"%(_settings.rundir, output)):
+       if not os.path.exists("%s/Annotate/in/%s.intermediate.hits"%(_settings.rundir, output)):
           run_process(_settings, "rm -rf %s/Annotate/out/PS_temp"%(_settings.rundir), "Annotate")
           run_process(_settings, "%s %s --coverage=%s/Assemble/out/%s.contig.cnt "%(phylosiftCmd, contigs, _settings.rundir,_settings.PREFIX), "Annotate")
 
           # save the results
           run_process(_settings, "unlink %s/Annotate/out/%s.intermediate.hits"%(_settings.rundir, output), "Annotate")
           run_process(_settings, "ln %s/Annotate/out/PS_temp/%s/sequence_taxa_summary.txt %s/Annotate/out/%s.intermediate.hits"%(_settings.rundir, os.path.basename(contigs), _settings.rundir, output), "Annotate") 
-       
+       else:
+          run_process(_settings, "ln %s/Annotate/in/%s.intermediate.hits %s/Annotate/out/%s.intermediate.hits"%(_settings.rundir, output, _settings.rundir, output), "Annotate")
+
    elif cls == "fcp":
        run_process(_settings, "ln -s %s/models"%(_FCP_MODELS), "Annotate")
        run_process(_settings, "ln -s %s/models/taxonomy.txt"%(_FCP_MODELS), "Annotate")
@@ -248,7 +250,7 @@ def Annotate(input,output):
    run_process(_settings, "unlink %s/Annotate/in/%s.asm.contig"%(_settings.rundir, _settings.PREFIX), "Annotate")
    run_process(_settings, "ln %s/Assemble/out/%s.asm.contig %s/Annotate/in/%s.asm.contig"%(_settings.rundir, _settings.PREFIX, _settings.rundir, _settings.PREFIX), "Annotate")
    run_process(_settings, "unlink %s/Annotate/out/%s.hits"%(_settings.rundir, _settings.PREFIX), "Annotate")
-   run_process(_settings, "rm -f %s/Annotate/out/*.hits"%(_settings.rundir), "Annotate")
+#   run_process(_settings, "rm -f %s/Annotate/out/*.hits"%(_settings.rundir), "Annotate")
    run_process(_settings, "rm -f %s/Annotate/out/*.epsilon-nb_results.txt"%(_settings.rundir), "Annotate")
    run_process(_settings, "rm -f %s/Annotate/out/*.phymm.out"%(_settings.rundir), "Annotate")
 
@@ -379,8 +381,8 @@ def Annotate(input,output):
 
    # annotate all the unmapped sequences using FCP
    if _cls == "blast" or _cls == "phmmer" or _cls == "metaphyler" or not _settings.annotate_unmapped:
-      #print "Warning: blast, PHMMER, and metaphyler is not supported for annotating unmapped sequences"
-      #print "Warning: unmapped/unaligned sequences will not be annotated!"
+      print "Warning: blast, PHMMER, and metaphyler is not supported for annotating unmapped sequences"
+      print "Warning: unmapped/unaligned sequences will not be annotated!"
       pass
    else:
       for lib in _readlibs:

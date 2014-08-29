@@ -41,7 +41,8 @@ def init(reads, skipsteps, cls, low, mintrust):
 @posttask(touch_file("%s/Logs/bin.ok"%(_settings.rundir)))
 @files("%s/Propagate/out/%s.clusters"%(_settings.rundir,_settings.PREFIX),"%s/Logs/bin.ok"%(_settings.rundir))
 def Bin(input,output):
-   if "Bin" in _skipsteps or _cls == None or "Assemble" in _skipsteps or "assemble" in _skipsteps:
+#   if "Bin" in _skipsteps or _cls == None or "Assemble" in _skipsteps or "assemble" in _skipsteps:
+   if "Bin" in _skipsteps or _cls == None:
        run_process(_settings, "touch %s/Propagate/out/%s.clusters"%(_settings.rundir, _settings.PREFIX), "Bin")
        run_process(_settings, "touch %s/Logs/bin.skip"%(_settings.rundir), "Bin")       
        return 0

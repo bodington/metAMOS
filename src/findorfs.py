@@ -292,7 +292,7 @@ def parse_prokka(orf_file,is_scaff=False, error_stream="FindORFS",min_len=_min_c
        try:
           cvgg.write("%s\t%s\n"%(id, cvg_dict[ctgID]))
        except KeyError:
-          cvgg.write("%s\t%s\n"%(id, 1))
+          cvgg.write("%s\t%s\n"%(id, 0))
     genectg.close()
     cvgg.close()
     genefile.close()
@@ -334,8 +334,12 @@ def findFastaORFs(orf, contigs, outputFNA, outputFAA, outputCVG, outputMAP, min_
          prokkaOptions = prokkaOptions.replace("--gram", "")
 
 #      run_process(_settings, "rm -rf %s/FindORFS/out/%s.prokka"%(_settings.rundir, _settings.PREFIX))
-      if not os.path.exists("%s/FindORFS/out/%s.prokka"%(_settings.rundir, _settings.PREFIX)):
+      if not os.path.exists("%s/FindORFS/in/%s.prokka"%(_settings.rundir, _settings.PREFIX)):
          run_process(_settings, "%s/prokka %s --metagenome --cpus %s --outdir %s/FindORFS/out/%s.prokka --prefix %s --force %s"%(_settings.PROKKA,"--fast" if _run_fast else "", _settings.threads,  _settings.rundir, _settings.PREFIX, _settings.PREFIX, contigs), "FindORFS")
+      
+      else:
+         run_process(_settings, "cp -a %s/FindORFS/in/%s.prokka %s/FindORFS/out/%s.prokka"%(_settings.rundir, _settings.PREFIX, _settings.rundir, _settings.PREFIX), "FindORFS")
+
       parse_prokka("%s/FindORFS/out/prokka/%s.gff"%(_settings.rundir,_settings.PREFIX), 0, "FindORFS", min_len, min_cvg)
       run_process(_settings, "ln %s/FindORFS/out/%s.prokka/%s.ffn %s/FindORFS/out/%s"%(_settings.rundir, _settings.PREFIX, _settings.PREFIX, _settings.rundir, outputFNA), "FindORFS")
       run_process(_settings, "ln %s/FindORFS/out/%s.prokka/%s.faa %s/FindORFS/out/%s"%(_settings.rundir, _settings.PREFIX, _settings.PREFIX, _settings.rundir, outputFAA), "FindORFS")

@@ -2,6 +2,7 @@
 
 import sys
 import os
+
 from utils import *
 _settings = Settings()
 def sort_contigs(ocf,cf,rcf,ck,orf_fasta,orf_protein,orf_mapf,out_dir,amos_bnk,amos_dir, lowmem):
@@ -83,10 +84,10 @@ def sort_contigs(ocf,cf,rcf,ck,orf_fasta,orf_protein,orf_mapf,out_dir,amos_bnk,a
             contigs_by_class[fields[1]] = [fields[0]]
     
         if orf_to_src.has_key(fields[0]):
-           if orf_by_class.has_key(fields[1]):
-              orf_by_class[fields[1]].extend(orf_to_src[fields[0]])
-           else: 
-              orf_by_class[fields[1]] = orf_to_src[fields[0]]
+#           if orf_by_class.has_key(fields[1]):
+#              orf_by_class[fields[1]].extend(orf_to_src[fields[0]])
+#           else: 
+            orf_by_class[fields[1]] = orf_to_src[fields[0]]
     class_file.close()
     
     for line in read_class_file:
@@ -104,10 +105,10 @@ def sort_contigs(ocf,cf,rcf,ck,orf_fasta,orf_protein,orf_mapf,out_dir,amos_bnk,a
             reads_by_class[fields[1]] = [fields[0]]
     
         if orf_to_src.has_key(fields[0]):
-           if orf_by_class.has_key(fields[1]):
-              orf_by_class[fields[1]].extend(orf_to_src[fields[0]])
-           else:
-              orf_by_class[fields[1]] = orf_to_src[fields[0]]
+#           if orf_by_class.has_key(fields[1]):
+#              orf_by_class[fields[1]].extend(orf_to_src[fields[0]])
+#           else:
+            orf_by_class[fields[1]] = orf_to_src[fields[0]]
     read_class_file.close()
     
     # output contigs
@@ -149,8 +150,8 @@ def sort_contigs(ocf,cf,rcf,ck,orf_fasta,orf_protein,orf_mapf,out_dir,amos_bnk,a
         f.close()
 
         if (lowmem or not os.path.exists("%s/shuffleBank"%(amos_dir))):
-           run_process(_settings,"%s/dumpreads -e -E '%s%s%s.read.eid' %s > '%s%s%s.read.fasta'"%(amos_dir,path,os.sep,class_name,amos_bnk,path,os.sep,class_name),"Classify")
-           run_process(_settings,"%s/dumpreads -q -e -E '%s%s%s.read.eid' %s > '%s%s%s.read.qual'"%(amos_dir,path,os.sep,class_name,amos_bnk,path,os.sep,class_name),"Classify")
+#           run_process(_settings,"%s/dumpreads -e -E '%s%s%s.read.eid' %s > '%s%s%s.read.fasta'"%(amos_dir,path,os.sep,class_name,amos_bnk,path,os.sep,class_name),"Classify")
+#           run_process(_settings,"%s/dumpreads -q -e -E '%s%s%s.read.eid' %s > '%s%s%s.read.qual'"%(amos_dir,path,os.sep,class_name,amos_bnk,path,os.sep,class_name),"Classify")
            run_process(_settings,"%s/dumpreads -f -e -E '%s%s%s.read.eid' %s > '%s%s%s.read.fastq'"%(amos_dir,path,os.sep,class_name,amos_bnk,path,os.sep,class_name),"Classify")
         else:
            fofn.write(path + class_name + ".read.eid" + "\n")

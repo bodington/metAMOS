@@ -44,10 +44,11 @@ def Propagate(input,output):
 
    # some output from the classifiers (for example PhyloSift) outputs multiple contigs with the same classification on one line
    # the line looks like ctg1","ctg2 class so we don't know which is right and we skip it in the classification below
-   if "Scaffold" in _skipsteps or "Propagate" in _skipsteps or "Assemble" in _skipsteps:
-      run_process(_settings, "cat %s/Propagate/in/%s.annots | grep -v \"\\\"\" | grep -v contigID > %s/Propagate/in/%s.clusters"%(_settings.rundir,_settings.PREFIX,_settings.rundir,_settings.PREFIX),"Propagate")
-   else:
-      run_process(_settings, "cat %s/Propagate/in/%s.annots | grep -v \"\\\"\" | grep -v contigID  |sed s/utg//g |sed s/ctg//g > %s/Propagate/in/%s.clusters"%(_settings.rundir,_settings.PREFIX,_settings.rundir,_settings.PREFIX),"Propagate")
+#   if "Scaffold" in _skipsteps or "Propagate" in _skipsteps or "Assemble" in _skipsteps:
+#      run_process(_settings, "cat %s/Propagate/in/%s.annots | grep -v \"\\\"\" | grep -v contigID > %s/Propagate/in/%s.clusters"%(_settings.rundir,_settings.PREFIX,_settings.rundir,_settings.PREFIX),"Propagate")
+#   else:
+#      run_process(_settings, "cat %s/Propagate/in/%s.annots | grep -v \"\\\"\" | grep -v contigID  |sed s/utg//g |sed s/ctg//g > %s/Propagate/in/%s.clusters"%(_settings.rundir,_settings.PREFIX,_settings.rundir,_settings.PREFIX),"Propagate")
+   run_process(_settings, "cat %s/Propagate/in/%s.annots | grep -v \"\\\"\" | grep -v contigID  |sed s/utg//g |sed s/ctg//g > %s/Propagate/in/%s.clusters"%(_settings.rundir,_settings.PREFIX,_settings.rundir,_settings.PREFIX),"Propagate")
 
    numMates = 0
    if os.path.exists("%s/Assemble/out/%s.graph.cte"%(_settings.rundir, _settings.PREFIX)): 

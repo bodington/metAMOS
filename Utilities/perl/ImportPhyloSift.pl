@@ -14,7 +14,7 @@ use KronaTools;
 
 use Getopt::Long;
 
-my $PHYLOSIFT_MIN_CONFIDENCE = 0.15;
+my $PHYLOSIFT_MIN_CONFIDENCE = 0.50;
 my %TAXONOMIC_ORDERING = ( 
 		"no rank" => 0,
 		"domain" => 1,
@@ -227,7 +227,7 @@ foreach my $input (@ARGV)
 		) = split /\t/, $line; #split /\t/, $line;
                 $contigID = (split(/\s/, $contigID))[0];
                 if (!defined($contigID) || (defined($currCtg) && !($currCtg eq $contigID))) {
-                   my $magnitude = 1;
+                   my $magnitude = 0;
                    if (defined($magnitudes{$currCtg})) {
                       $magnitude = $magnitudes{$currCtg}
                     }
